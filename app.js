@@ -36,14 +36,14 @@ app.get('/input', (req, res) => {
 
 app.get('/output', async (req, res) => 
 {
-
+    // using the api from https://huggingface.co/spaces/aurioldegbelo/ner_space_2023 
     const client = await Client.connect("aurioldegbelo/ner_space_2023");
     const result = await client.predict("/predict", { 		
             sentence: example_text, 
     });
 
     console.log(result.data);
-  res.send(result.data)
+    res.send(result.data)
 })
 
 app.listen(port, () => {
