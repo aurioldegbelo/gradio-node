@@ -1,0 +1,16 @@
+{
+  "name": "gradio-node",
+  "version": "1.0.0",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "description": "Simple example of demonstrating the use of a gradio api from node.js",
+  "type": "module", 
+  "dependencies": {
+    "express": "^4.21.1", 
+    "@gradio/client": "^1.7.1"
+  }
+}
