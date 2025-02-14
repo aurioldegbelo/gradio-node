@@ -4,15 +4,13 @@ import path from 'path'
 import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-import { Client } from "@gradio/client";
-
 
 const app = express()
 const port = 3000
 
-app.get('/', (req, res) => {
-  res.send('Home Route')
-})
+
+import { Client } from "@gradio/client";
+
 
 let example_text = `Münster is an independent city (Kreisfreie Stadt) in North Rhine-Westphalia, Germany. It is in the northern part of the state and is considered to
  be the cultural centre of the Westphalia region. It is also a state district capital. Münster was the
@@ -26,6 +24,12 @@ Münster gained the status of a Großstadt (major city) with more than 100,000 i
  the Deutsche Bank, IKEA, LIDL, REWE, ALDI and BASF Coatings.`
 
 
+app.get('/', (req, res) => {
+  res.send('Home Route')
+})
+
+
+
 // declare the public folder as a static folder
 app.use(express.static(path.join(__dirname, '/public')))
 console.log("Directory: ", __dirname)
@@ -36,6 +40,7 @@ app.get('/input', (req, res) => {
 
 app.get('/output', async (req, res) => 
 {
+   /*
     // using the api from https://huggingface.co/spaces/aurioldegbelo/ner_space_2023 
     const client = await Client.connect("aurioldegbelo/ner_space_2023");
     const result = await client.predict("/predict", { 		
@@ -43,7 +48,16 @@ app.get('/output', async (req, res) =>
     });
 
     console.log(result.data);
+    */
+
+    const client = await Client.connect("aurioldegbelo/ner_space_2023");
+    const result = await client.predict("/predict", { 		
+        sentence: example_text, 
+    });
+
+    console.log(result.data);
     res.send(result.data)
+
 })
 
 app.listen(port, () => {
